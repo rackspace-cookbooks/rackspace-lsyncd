@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rackspace-lsyncd
-# Default:: default
+# Recipe:: install
 #
 # Copyright 2013, Rackspace, Inc.
 #
@@ -16,4 +16,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "rackspace-lsyncd::install
+
+case node['platform']
+when "ubuntu", "debian"
+
+  package "lsyncd" do
+    action :install
+  end
+
+  directory node['rackspace-lsyncd']['']
+  
+
+
+
+when "redhat","centos","fedora", "amazon","scientific"
+
+
+end

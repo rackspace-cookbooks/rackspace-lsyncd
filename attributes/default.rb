@@ -19,6 +19,8 @@
 
 default['rackspace-lsyncd']['logfile'] = "/var/log/lsyncd/lsyncd.log"
 default['rackspace-lsyncd']['statusFile'] = "/var/log/lsyncd/lsyncd-status.log"
+default['rackspace-lsyncd']['configFile'] = "/etc/lsyncd.lua"
+
 
 default['rackspace-lsyncd']['source'] = "/var/www"
 default['rackspace-lsyncd']['target'] = "/var/www"
