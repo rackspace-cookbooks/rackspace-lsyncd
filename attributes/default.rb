@@ -17,12 +17,15 @@
 # limitations under the License.
 #
 
-default['rackspace-lsyncd']['logfile'] = "/var/log/lsyncd/lsyncd.log"
-default['rackspace-lsyncd']['statusFile'] = "/var/log/lsyncd/lsyncd-status.log"
-default['rackspace-lsyncd']['configFile'] = "/etc/lsyncd.lua"
+default['rackspace-lsyncd']['log-file']    = "/var/log/lsyncd/lsyncd.log"
+default['rackspace-lsyncd']['status-file'] = "/var/log/lsyncd/lsyncd-status.log"
+default['rackspace-lsyncd']['config-file'] = "/etc/lsyncd.lua"
 
 
 default['rackspace-lsyncd']['source'] = "/var/www"
 default['rackspace-lsyncd']['target'] = "/var/www"
 
-default['rackspace-lsyncd']['rsyncOps'] = ["-a", "-z", "-t", "--delete"]
+default['rackspace-lsyncd']['target-user']       = "developer"
+default['rackspace-lsyncd']['target-server-role'] = "webserver"
+
+default['rackspace-lsyncd']['rsync-options'] = ["-a", "-z", "-t", "--delete"]
