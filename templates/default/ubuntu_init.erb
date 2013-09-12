@@ -15,7 +15,7 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="synchronization daemon"
 NAME=lsyncd
 DAEMON=/usr/bin/$NAME
-CONFIG=<%= node['rackspace-lsyncd']['configFile'] %>
+CONFIG=<%= node['rackspace-lsyncd']['config-file'] %>
 DAEMON_ARGS="${CONFIG}"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME

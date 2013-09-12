@@ -25,7 +25,21 @@ default['rackspace-lsyncd']['config-file'] = "/etc/lsyncd.lua"
 default['rackspace-lsyncd']['source'] = "/var/www"
 default['rackspace-lsyncd']['target'] = "/var/www"
 
-default['rackspace-lsyncd']['target-user']       = "developer"
+default['rackspace-lsyncd']['target-user']        = "developer"
 default['rackspace-lsyncd']['target-server-role'] = "webserver"
 
 default['rackspace-lsyncd']['rsync-options'] = ["-a", "-z", "-t", "--delete"]
+
+case node['platform']
+when "redhat","centos", "amazon","scientific"
+
+	if node['yum']['epel']['includepkgs'].nil?
+		default['yum']['epel']['includepkgs'] = "lsyncd"
+
+	elsif not node['yum']['epel']['includepkgs'].include? "lsyncd" do
+		includepkgs = "#{node['yum']['epel']['includepkgs']} lsyncd"
+        default['yum']['epel']['includepkgs'] = includepkgs
+    end
+
+  end
+end

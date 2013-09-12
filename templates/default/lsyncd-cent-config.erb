@@ -1,5 +1,6 @@
-settings = {
+settings  {
    logfile     = "<%= node['rackspace-lsyncd']['log-file']%>",
+   statusFile  = "<%= node['rackspace-lsyncd']['status-file']%>",
    inotifyMode = "CloseWrite or Modify",
    insist      = 1
 }
@@ -11,10 +12,12 @@ sync {
     default.rsync,
     source = "<%= node['rackspace-lsyncd']['source'] %>",
     target = "<%= node['rackspace-lsyncd']['target-user'] %><%= member[:ipaddress] %>:<%= node['rackspace-lsyncd']['target'] %>",
-    rsyncOps = {
+    rsync = {
+        _extra = {
         <% node['rackspace-lsyncd']['rsync-options'].each do |option| %>
           "<%= option %>",
         <% end %>
+        }
     }
 }
 <% end %>
