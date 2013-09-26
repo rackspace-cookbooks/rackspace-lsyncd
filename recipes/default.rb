@@ -120,5 +120,5 @@ end
 
 service "lsyncd" do
   supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
+  action [:enable]
 end
