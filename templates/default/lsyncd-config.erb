@@ -11,7 +11,7 @@ settings  {
 sync {
     default.rsync,
     source = "<%= node['rackspace-lsyncd']['source'] %>",
-    target = "<%= node['rackspace-lsyncd']['target-user'] %><%= member[:ipaddress] %>:<%= node['rackspace-lsyncd']['target'] %>",
+    target = "<%= node['rackspace-lsyncd']['target-user'] %>@<%= member[:ipaddress] %>:<%= node['rackspace-lsyncd']['target'] %>",
     rsync = {
       <% node['rackspace-lsyncd']['rsync-options'].each do |option| %>
       <% if option[1] == true %>
