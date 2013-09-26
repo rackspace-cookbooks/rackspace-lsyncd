@@ -53,6 +53,25 @@ end
 case node['platform']
 when "ubuntu", "debian"
 
+  include_recipe "apt"
+
+  apt_repository "rackops" do
+    uri "http://repo.rackops.org/apt/ubuntu/"
+    distribution node['lsb']['codename']
+    key "http://repo.rackops.org/rackops-signing-key.asc"
+    components ["main"]
+    action :add
+  end
+
+  execute "apt-get-update-periodic" do
+    command "apt-get update"
+    ignore_failure true
+    only_if do
+      File.exists?('/var/lib/apt/periodic/update-success-stamp') &&
+      File.mtime('/var/lib/apt/periodic/update-success-stamp') < Time.now - 86400
+    end
+  end
+
   package "lsyncd" do
     action :install
   end
@@ -62,17 +81,6 @@ when "ubuntu", "debian"
   	mode 0755
   	owner "root"
   	group "root"
-  end
-
-  template node['rackspace-lsyncd']['config-file'] do
-    source "lsyncd-ubuntu-config.erb"
-    mode 0755
-    owner "root"
-    group "root"
-    notifies :reload, "service[lsyncd]"
-    variables(
-      :target_servers => target_servers.uniq
-    )
   end
 
 when "redhat","centos","fedora", "amazon","scientific"
@@ -97,21 +105,18 @@ when "redhat","centos","fedora", "amazon","scientific"
     group "root"  	
   end
 
-  template node['rackspace-lsyncd']['config-file'] do
-    source "lsyncd-cent-config.erb"
-    mode 0755
-    owner "root"
-    group "root"
-    notifies :reload, "service[lsyncd]"
-    variables(
-      :target_servers => target_servers.uniq
-    )
-  end
-
-
 end
 
-
+template node['rackspace-lsyncd']['config-file'] do
+  source "lsyncd-config.erb"
+  mode 0755
+  owner "root"
+  group "root"
+  notifies :reload, "service[lsyncd]"
+  variables(
+    :target_servers => target_servers.uniq
+  )
+end
 
 service "lsyncd" do
   supports :restart => true, :status => true, :reload => true

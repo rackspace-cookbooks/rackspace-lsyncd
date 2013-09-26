@@ -28,7 +28,37 @@ default['rackspace-lsyncd']['target'] = "/var/www"
 default['rackspace-lsyncd']['target-user']        = "developer"
 default['rackspace-lsyncd']['target-server-role'] = "webserver"
 
-default['rackspace-lsyncd']['rsync-options'] = ["-a", "-z", "-t", "--delete"]
+default['rackspace-lsyncd']['rsync-options']['acls']          = false
+default['rackspace-lsyncd']['rsync-options']['archive']       = true
+default['rackspace-lsyncd']['rsync-options']['binary']        = "/usr/bin/rsync"
+default['rackspace-lsyncd']['rsync-options']['checksum']      = false
+default['rackspace-lsyncd']['rsync-options']['compress']      = true
+default['rackspace-lsyncd']['rsync-options']['copy_links']    = false
+default['rackspace-lsyncd']['rsync-options']['cvs_exclude']   = false
+default['rackspace-lsyncd']['rsync-options']['dry_run']       = false
+default['rackspace-lsyncd']['rsync-options']['executability'] = false
+default['rackspace-lsyncd']['rsync-options']['hard_links']    = false
+default['rackspace-lsyncd']['rsync-options']['ignore_times']  = false
+default['rackspace-lsyncd']['rsync-options']['ipv4']          = false
+default['rackspace-lsyncd']['rsync-options']['ipv6']          = false
+default['rackspace-lsyncd']['rsync-options']['links']         = false
+default['rackspace-lsyncd']['rsync-options']['one_file_system'] = false
+default['rackspace-lsyncd']['rsync-options']['owner']         = false
+default['rackspace-lsyncd']['rsync-options']['password_file'] = nil
+default['rackspace-lsyncd']['rsync-options']['perms']         = false
+default['rackspace-lsyncd']['rsync-options']['protect_args']  = false
+default['rackspace-lsyncd']['rsync-options']['prune_empty_dirs'] = false
+default['rackspace-lsyncd']['rsync-options']['quiet']         = false
+default['rackspace-lsyncd']['rsync-options']['rsh']           = nil
+default['rackspace-lsyncd']['rsync-options']['rsync_path']    = nil
+default['rackspace-lsyncd']['rsync-options']['sparse']        = false
+default['rackspace-lsyncd']['rsync-options']['temp_dir']      = nil
+default['rackspace-lsyncd']['rsync-options']['times']         = false
+default['rackspace-lsyncd']['rsync-options']['update']        = false
+default['rackspace-lsyncd']['rsync-options']['verbose']       = false
+default['rackspace-lsyncd']['rsync-options']['whole_file']    = false
+default['rackspace-lsyncd']['rsync-options']['xattrs']        = false
+default['rackspace-lsyncd']['rsync-options']['_extra']        = nil
 
 case node['platform']
   when "redhat","centos", "amazon","scientific"

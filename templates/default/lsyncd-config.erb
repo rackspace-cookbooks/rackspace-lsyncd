@@ -13,11 +13,14 @@ sync {
     source = "<%= node['rackspace-lsyncd']['source'] %>",
     target = "<%= node['rackspace-lsyncd']['target-user'] %><%= member[:ipaddress] %>:<%= node['rackspace-lsyncd']['target'] %>",
     rsync = {
-        _extra = {
-        <% node['rackspace-lsyncd']['rsync-options'].each do |option| %>
-          "<%= option %>",
-        <% end %>
-        }
+      <% node['rackspace-lsyncd']['rsync-options'].each do |option| %>
+      <% if option[1] == true %>
+        <%= option[0]%> = true,
+      <% elsif option[1].is_a? String %>
+        <%= option[0]%> = "<%= option[1]%>",
+      <% end %>
+    <% end %>
+
     }
 }
 <% end %>
