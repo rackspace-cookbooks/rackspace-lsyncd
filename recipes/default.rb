@@ -112,7 +112,7 @@ template node['rackspace-lsyncd']['config-file'] do
   mode 0755
   owner "root"
   group "root"
-  notifies :reload, "service[lsyncd]"
+  notifies :restart, "service[lsyncd]"
   variables(
     :target_servers => target_servers.uniq
   )
