@@ -27,6 +27,7 @@ default['rackspace-lsyncd']['target'] = "/var/www"
 
 default['rackspace-lsyncd']['target-user']        = "developer"
 default['rackspace-lsyncd']['target-server-role'] = "webserver"
+default['rackspace-lsyncd']['not-target-server-role'] = nil
 
 default['rackspace-lsyncd']['rsync-options']['acls']          = false
 default['rackspace-lsyncd']['rsync-options']['archive']       = true
