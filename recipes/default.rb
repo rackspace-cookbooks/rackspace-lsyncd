@@ -27,7 +27,7 @@ Chef::Log.warn("target-server-role is #{node['rackspace-lsyncd']['target-server-
 Chef::Log.warn("not-target-server-role is #{node['rackspace-lsyncd']['not-target-server-role']}")
 Chef::Log.warn("target-server-Environment is #{node.chef_environment}")
 
-if !node['rackspace-lsyncd']['not-target-server-role'].nil?
+if node['rackspace-lsyncd']['not-target-server-role'].nil?
   target_servers = search("node", "recipes:#{node['rackspace-lsyncd']['target-server-role']} AND chef_environment:#{node.chef_environment}") || []
 else
   target_servers = search("node", "recipes:#{node['rackspace-lsyncd']['target-server-role']} AND chef_environment:#{node.chef_environment} NOT recipes:#{node['rackspace-lsyncd']['not-target-server-role']}") || []
