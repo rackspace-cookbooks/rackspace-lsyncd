@@ -10,31 +10,48 @@ This should work almost completely out of the box, however you will almost defin
 
 # Attributes
 
-Source folder on lsyncd-master  
-node['rackspace-lsyncd']['source']  
+### lsyncd:
+Source folder on lsyncd-master
+
+    node['rackspace-lsyncd']['source']  
   
-Target folder on receiving nodes  
-node['rackspace-lsyncd']['target']  
+Target folder on receiving nodes
+
+    node['rackspace-lsyncd']['target']  
   
-Role for servers that will become receiving nodes  
-node['rackspace-lsyncd']['target-server-role']  
+Role for servers that will become receiving nodes
+
+    node['rackspace-lsyncd']['target-server-role']  
   
-User that rsync will attempt to use on the destination servers  
-node['rackspace-lsyncd']['target-user']  
+User that rsync will attempt to use on the destination servers
+
+    node['rackspace-lsyncd']['target-user']  
   
-You can also change log and config files with the following attributes. However the defaults should work for most people.  
-node['rackspace-lsyncd']['log-file']  
-node['rackspace-lsyncd']['status-file']  
-node['rackspace-lsyncd']['config-file']  
+You can also change log and config files with the following attributes. However the defaults should work for most people.
+
+    node['rackspace-lsyncd']['log-file']  
+    node['rackspace-lsyncd']['status-file']  
+    node['rackspace-lsyncd']['config-file']  
   
-All standard lsyncd options are in the attribute tree under,  
-node['rackspace-lsyncd']['rsync-options']  
-Any set to a boolean value of true will be set as true in the config, any set to strings will be dropped into the config with the string as the value.  
-The following are defaulted to on,  
-node['rackspace-lsyncd']['rsync-options']['archive'] = true  
-node['rackspace-lsyncd']['rsync-options']['binary'] = "/usr/bin/rsync"  
-node['rackspace-lsyncd']['rsync-options']['compress'] = true  
-  
-# Author  
+All standard lsyncd options are in the attribute tree under `node['rackspace-lsyncd']['rsync-options']`
+
+Any set to a boolean value of true will be set as true in the config, any set to strings will be dropped into the config with the string as the value.
+The following are defaulted to on
+
+    node['rackspace-lsyncd']['rsync-options']['archive'] = true  
+    node['rackspace-lsyncd']['rsync-options']['binary'] = "/usr/bin/rsync"
+    node['rackspace-lsyncd']['rsync-options']['compress'] = true
+
+### logrotate for /var/log/lsyncd/lsyncd.log:
+    node['rackspace-lsyncd']['logrotate-options']['rotate'] = 7
+    node['rackspace-lsyncd']['logrotate-options']['frequency'] = "daily"
+    node['rackspace-lsyncd']['logrotate-options']['compress'] = true
+    
+Rotate: Log files are rotated `N`  times  before  being  removed.
+
+Frequency: `daily`, `weekly` or `monthly`
+
+Compress: `compress` or `nocompress`  
+# Author
 
 Author:: Thomas Cate (thomas.cate@rackspace.com)

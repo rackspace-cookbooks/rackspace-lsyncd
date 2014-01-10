@@ -21,7 +21,6 @@ default['rackspace-lsyncd']['log-file']    = "/var/log/lsyncd/lsyncd.log"
 default['rackspace-lsyncd']['status-file'] = "/var/log/lsyncd/lsyncd-status.log"
 default['rackspace-lsyncd']['config-file'] = "/etc/lsyncd.lua"
 
-
 default['rackspace-lsyncd']['source'] = "/var/www"
 default['rackspace-lsyncd']['target'] = "/var/www"
 
@@ -60,6 +59,10 @@ default['rackspace-lsyncd']['rsync-options']['verbose']       = false
 default['rackspace-lsyncd']['rsync-options']['whole_file']    = false
 default['rackspace-lsyncd']['rsync-options']['xattrs']        = false
 default['rackspace-lsyncd']['rsync-options']['_extra']        = nil
+
+default['rackspace-lsyncd']['logrotate-options']['rotate'] = 7
+default['rackspace-lsyncd']['logrotate-options']['frequency'] = "daily"
+default['rackspace-lsyncd']['logrotate-options']['compress'] = true
 
 case node['platform']
   when "redhat","centos", "amazon","scientific"
