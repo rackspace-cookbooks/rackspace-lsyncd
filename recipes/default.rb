@@ -22,7 +22,6 @@ directory File.dirname(node['rackspace-lsyncd']['status-file'])
 directory File.dirname(node['rackspace-lsyncd']['config-file'])
 directory node['rackspace-lsyncd']['source']
 
-
 Chef::Log.warn("target-server-role is #{node['rackspace-lsyncd']['target-server-role']}")
 Chef::Log.warn("not-target-server-role is #{node['rackspace-lsyncd']['not-target-server-role']}")
 Chef::Log.warn("target-server-Environment is #{node.chef_environment}")
@@ -32,12 +31,11 @@ if node['rackspace-lsyncd']['not-target-server-role'].nil?
 else
   target_servers = search("node", "recipes:#{node['rackspace-lsyncd']['target-server-role']} AND chef_environment:#{node.chef_environment} NOT recipes:#{node['rackspace-lsyncd']['not-target-server-role']}") || []
 end
+
 target_servers.sort!()
 Chef::Log.warn("target servers are #{target_servers}")
-
-
-
 Chef::Log.warn("add #{target_servers.length} nodes")
+
 #this logic is based on the excellent Opscode haproxy cookbook
 target_servers.map! do |member|
   Chef::Log.warn(member)
@@ -56,10 +54,8 @@ target_servers.map! do |member|
   {:ipaddress => server_ip, :hostname => member['hostname']}
 end
 
-
 case node['platform']
 when "ubuntu", "debian"
-
   include_recipe "apt"
 
   apt_repository "rackops" do
@@ -91,7 +87,6 @@ when "ubuntu", "debian"
   end
 
 when "redhat","centos","fedora", "amazon","scientific"
-
   include_recipe "yum::epel"
 
   package "lsyncd" do
@@ -111,7 +106,6 @@ when "redhat","centos","fedora", "amazon","scientific"
     owner "root"
     group "root"  	
   end
-
 end
 
 template node['rackspace-lsyncd']['config-file'] do
@@ -123,6 +117,13 @@ template node['rackspace-lsyncd']['config-file'] do
   variables(
     :target_servers => target_servers.uniq
   )
+end
+
+template "/etc/logrotate.d/lsyncd" do
+  source "lsyncd-logrotate.erb"
+  mode 0644
+  owner "root"
+  group "root"
 end
 
 service "lsyncd" do
